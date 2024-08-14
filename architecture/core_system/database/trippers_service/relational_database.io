@@ -1,3 +1,15 @@
+// Replication:
+// - master-slave (one sync + async)
+// - replication factor 2
+//
+// Sharding:
+// - key based by user_id
+// Проблематика: как быть с таблицами: сountries,citizenships,reactions_type,locations
+// А с follows? 
+// 
+// Sharding-Rebalancing:
+// - Consistent Hashing
+
 Table сountries {
   iso integer [primary key, note: 'Country uninq code(ISO)']
   country_name varchar(32) [unique, not null]
