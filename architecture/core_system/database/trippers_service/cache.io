@@ -6,7 +6,7 @@ Table popular_publication {
   description varchar(200) [not null, note: 'Description of the publication']
   longitude double [not null, note: 'Longitude of the publication']
   latitude double [not null, note: 'Latitude of the publication']
-  reactions json [not null, note: 'Reactions of the publication']
+  count_reaction int [not null, note: 'Count reaction']
 }
 
 Table popular_locations {
@@ -14,9 +14,5 @@ Table popular_locations {
   location_name varchar(256) [not null, note: 'Location name']
   longitude double [not null, note: 'Longitude of the location']
   latitude double [not null, note: 'Latitude of the location']
-}
-
-Table popular_comments {
-  publication_id integer [unique, note: 'Publicatoin id']
-  comments json [not null, note: 'Last 40 comments of the publication']
+  radius integer [not null]
 }
