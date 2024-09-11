@@ -1,12 +1,3 @@
-enum location_type {
-        popular
-}
-
-enum reaction_type {
-        like,
-        fire
-}
-
 Table сountries {
   iso integer [primary key, note: 'Country uninq code(ISO)']
   country_name varchar(32) [unique, not null]
@@ -42,18 +33,9 @@ Table publicaitons {
   created_at timestamp [not null, note: 'Creation time']
 }
 
-Table publication_reactions {
-  publication_id integer [not null]
-  reaction_id integer [not null]
-  count integer [not null]
-}
-
-Table reactions_type {
-  id integer [primary key, increment]
-  reaction_type integer [not null, note: 'Emoji']
-}
-
 Table publication_comments {
+  id integer [primary key, increment]
+  reply integer [null, note: 'A reply to the comment. If filled in, this is a replay to the comment with an ID']
   user_id integer [not null]
   publication_id integer [not null]
   text varchar(140) [not null]
@@ -77,8 +59,6 @@ Ref: citizenships.country_id < сountries.iso // one-to-one
 Ref: publicaitons.id < users.id // one-to-one
 Ref: publicaitons.location_id < locations.id // one-to-one
 
-Ref: publication_reactions.publication_id < publicaitons.id // one-to-one
-Ref: publication_reactions.reaction_id > reactions_type.id // many-to-one
-
 Ref: publication_comments.publication_id < publicaitons.id // one-to-one
 Ref: publication_comments.user_id < users.id // one-to-one
+Ref: publication_comments.reply > publication_comments.id // many-to-one
