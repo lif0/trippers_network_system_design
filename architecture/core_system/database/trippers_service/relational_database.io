@@ -1,12 +1,16 @@
-Table сountries {
-  iso integer [primary key, note: 'Country uninq code(ISO)']
-  country_name varchar(32) [unique, not null]
-}
-
-Table citizenships {
-  user_id integer [not null]
-  country_id integer [not null]
-}
+# Sharding:
+#  geoService: locations -> shard_key = (longitude, longitude)
+#  usersService: users -> shard_key = user_id
+#  publicaitonService: publicaitons -> shard_key = publicatoin_id
+#  publicationCommentService: publication_comments -> shard_key = publication_id
+#  relationService: follows -> shard_key = following_user_id
+#
+# Replication:
+#  geoService: async master-slave
+#  usersService: async master-slave
+#  publicaitonService: async master-slave
+#  publicationCommentService: async master-slave
+#  relationService: async master-slave
 
 Table users {
   id integer [primary key, increment]
@@ -35,7 +39,7 @@ Table publicaitons {
 
 Table publication_comments {
   id integer [primary key, increment]
-  reply integer [null, note: 'A reply to the comment. If filled in, this is a replay to the comment with an ID']
+  reply_id integer [null, note: 'A reply to the comment. If filled in, this is a replay to the comment with an ID']
   user_id integer [not null]
   publication_id integer [not null]
   text varchar(140) [not null]
@@ -53,12 +57,9 @@ Table locations {
 Ref: users.id < follows.following_user_id // one-to-one
 Ref: users.id < follows.followed_user_id // one-to-one
 
-Ref: citizenships.user_id > users.id // many-to-one
-Ref: citizenships.country_id < сountries.iso // one-to-one
-
 Ref: publicaitons.id < users.id // one-to-one
 Ref: publicaitons.location_id < locations.id // one-to-one
 
 Ref: publication_comments.publication_id < publicaitons.id // one-to-one
 Ref: publication_comments.user_id < users.id // one-to-one
-Ref: publication_comments.reply > publication_comments.id // many-to-one
+Ref: publication_comments.reply_id > publication_comments.id // many-to-one

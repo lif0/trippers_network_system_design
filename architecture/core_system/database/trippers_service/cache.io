@@ -16,11 +16,3 @@ Table locations { // popular locations
   latitude double [not null, note: 'Latitude of the location']
   radius integer [not null]
 }
-
-Table publication_comments { // comments on popular posts (store only top 300 latest comments)
-  id integer [primary key, increment]
-  reply integer [null, note: 'A reply to the comment. If filled in, this is a replay to the comment with an ID']
-  user_id integer [not null]
-  publication_id integer [not null]
-  text [not null]
-}
