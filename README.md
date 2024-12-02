@@ -1,8 +1,6 @@
-<h1 align="center">Trippers Network - System Design</h1>
+<h1 align="center">Trippers Network - System Design(<a href="/docs/README_ru.md">ru</a> | <a href="/">eng</a>)</h1>
 <div align="center"> Trippers.net - a social network for travelers</div>
 <br>
-
-<p style="text-align: right;">[<a href="docs/README_ru.md">ru_version</a>]</p>
 
 ### Functional Requirements
 - Posting travel posts with photos, a brief description, and geotagging to specific travel destinations;
